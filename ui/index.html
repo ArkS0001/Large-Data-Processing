@@ -1,58 +1,46 @@
-<!doctype html>
-  <title>Large Data Processing — UI</title>
-  <link rel="stylesheet" href="styles.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Enterprise Data Processing Monitor</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>Large Data Processing — Generator UI</h1>
-    <p class="muted">Interactive UI that mirrors the backend generator pipeline. Use it to demo performance, pausing, and retention.</p>
-  </header>
-  <main>
-    <aside class="panel controls">
-      <label>Data Source
-        <select id="sourceSelect">
-          <option value="vehicle">Vehicle Sensor Logs</option>
-          <option value="production">Production Records</option>
-          <option value="inspection">Quality Inspections</option>
-        </select>
-      </label>
-      <label>Total records
-        <input id="totalInput" type="number" value="200000" min="1" step="1">
-      </label>
-      <label>Batch size
-        <input id="batchInput" type="number" value="2000" min="1" step="1">
-      </label>
-      <label>Retain sample
-        <input id="retainInput" type="number" value="50" min="1" step="1">
-      </label>
-      <div class="buttons">
-        <button id="startBtn">Start</button>
-        <button id="pauseBtn" disabled>Pause</button>
-        <button id="resumeBtn" disabled>Resume</button>
-        <button id="cancelBtn" disabled>Cancel</button>
-        <button id="downloadBtn" disabled>Download Sample</button>
-      </div>
-      <div class="muted small">Tip: Use smaller totals for quick demos.</div>
-    </aside>
-    <section class="panel dashboard">
-      <div class="stats">
-        <div>Processed: <strong id="processedCount">0</strong></div>
-        <div>Batches: <strong id="batchesCount">0</strong></div>
-        <div>Retained: <strong id="retainedCount">0</strong></div>
-        <div>Progress: <progress id="progress" value="0" max="100"></progress></div>
-      </div>
-      <div class="chartWrap">
-        <canvas id="throughputChart" width="800" height="160"></canvas>
-      </div>
-      <div class="log">
-        <h3>Logs / Sample Preview</h3>
-        <pre id="log" aria-live="polite"></pre>
-      </div>
-    </section>
-  </main>
-  <footer>
-    <small class="muted">Designed to demonstrate an enterprise generator-based pipeline in the browser.</small>
-  </footer>
-  <script type="module" src="./js/ui.js"></script>
+
+<header>
+  <h1>Enterprise Data Processing Monitor</h1>
+  <p>Generator-based Lazy Pipeline</p>
+</header>
+
+<section class="kpi">
+  <div class="card">
+    <h3>Total Records</h3>
+    <span id="total">1,000,000</span>
+  </div>
+  <div class="card">
+    <h3>Processed</h3>
+    <span id="processed">0</span>
+  </div>
+  <div class="card danger">
+    <h3>Alerts</h3>
+    <span id="alerts">0</span>
+  </div>
+  <div class="card">
+    <h3>Status</h3>
+    <span id="status">Idle</span>
+  </div>
+</section>
+
+<section class="controls">
+  <button id="start">▶ Start</button>
+  <button id="pause">⏸ Pause</button>
+</section>
+
+<section class="logs">
+  <h2>Live Pipeline Logs</h2>
+  <div id="logBox"></div>
+</section>
+
+<script src="app.js"></script>
 </body>
 </html>
