@@ -1,5 +1,5 @@
-function getVehicleSensorData(totalRecords = 1_000_000) {
-  return Array.from({ length: totalRecords }, (_, i) => ({
+function getVehicleSensorData(total = 1_000_000) {
+  return Array.from({ length: total }, (_, i) => ({
     vehicleId: `VH-${i}`,
     temperature: Math.random() * 120,
     speed: Math.random() * 180,
