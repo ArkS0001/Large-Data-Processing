@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High-Performance Data Processor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <header>
+            <h1>Big Data Stream Processor</h1>
+            <p>Using JS Generators & Lazy Loading</p>
+        </header>
+
+        <!-- Control Panel -->
+        <section class="controls">
+            <div class="control-group">
+                <label>Dataset Source</label>
+                <select id="datasetSelect">
+                    <option value="vehicle">Vehicle Sensor Logs</option>
+                    <option value="production">Production Records</option>
+                    <option value="quality">Quality Inspection Data</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Processing Speed (Simulated Latency)</label>
+                <input type="range" id="speedRange" min="0" max="100" value="10">
+                <span id="speedDisplay">10ms</span>
+            </div>
+
+            <div class="actions">
+                <button id="btnStart" class="btn primary">Start Stream</button>
+                <button id="btnPause" class="btn warning" disabled>Pause</button>
+                <button id="btnStop" class="btn danger" disabled>Stop</button>
+            </div>
+        </section>
+
+        <!-- Metrics Panel -->
+        <section class="metrics">
+            <div class="card">
+                <h3>Total Processed</h3>
+                <div class="metric-value" id="countDisplay">0</div>
+            </div>
+            <div class="card">
+                <h3>Current Memory Impact</h3>
+                <div class="metric-value status-good">Low (Streaming)</div>
+            </div>
+            <div class="card">
+                <h3>System Status</h3>
+                <div class="metric-value" id="statusDisplay">Idle</div>
+            </div>
+        </section>
+
+        <!-- Live Data Feed -->
+        <section class="data-feed">
+            <div class="feed-header">
+                <span>Live Log Output</span>
+                <span class="badge">Lazy Loaded</span>
+            </div>
+            <div class="feed-window" id="feedWindow">
+                <!-- Data rows injected here -->
+                <div class="placeholder">Select a dataset and start streaming...</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modular JS Entry Point -->
+    <script type="module" src="main.js"></script>
+</body>
+</html>
