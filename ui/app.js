@@ -1,6 +1,3 @@
-// -----------------------------
-// Generator (same concept as backend)
-// -----------------------------
 function* dataGenerator(total = 1_000_000) {
   for (let i = 1; i <= total; i++) {
     yield {
@@ -10,11 +7,7 @@ function* dataGenerator(total = 1_000_000) {
   }
 }
 
-const generator = dataGenerator();
-
-// -----------------------------
-// UI State
-// -----------------------------
+const gen = dataGenerator();
 let running = false;
 let processed = 0;
 let alerts = 0;
@@ -24,13 +17,10 @@ const alertsEl = document.getElementById("alerts");
 const statusEl = document.getElementById("status");
 const logBox = document.getElementById("logBox");
 
-// -----------------------------
-// Processing Loop (Lazy)
-// -----------------------------
-function runPipeline() {
+function run() {
   if (!running) return;
 
-  const { value, done } = generator.next();
+  const { value, done } = gen.next();
   if (done) {
     statusEl.textContent = "Completed";
     return;
@@ -42,21 +32,18 @@ function runPipeline() {
   if (value.temperature > 100) {
     alerts++;
     alertsEl.textContent = alerts;
-    log(`🚨 ALERT | ${value.id} | ${value.temperature.toFixed(1)}°C`);
+    log(`🚨 ALERT ${value.id} ${value.temperature.toFixed(1)}°C`);
   } else {
     log(`Processed ${value.id}`);
   }
 
-  requestAnimationFrame(runPipeline);
+  requestAnimationFrame(run);
 }
 
-// -----------------------------
-// Logs
-// -----------------------------
-function log(message) {
+function log(msg) {
   const div = document.createElement("div");
   div.className = "log";
-  div.textContent = message;
+  div.textContent = msg;
   logBox.prepend(div);
 
   if (logBox.children.length > 150) {
@@ -64,13 +51,10 @@ function log(message) {
   }
 }
 
-// -----------------------------
-// Controls
-// -----------------------------
 document.getElementById("start").onclick = () => {
   running = true;
   statusEl.textContent = "Running";
-  runPipeline();
+  run();
 };
 
 document.getElementById("pause").onclick = () => {
