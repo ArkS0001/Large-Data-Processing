@@ -1,4 +1,12 @@
 # Large-Data-Processing
+Enterprise-grade large data processing using JavaScript generators.
+
+Highlights:
+- Lazy loading
+- Constant memory usage
+- Real-time monitoring UI
+- Production-ready architecture
+
 ```
 large-data-processing/
 │
