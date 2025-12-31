@@ -1,0 +1,79 @@
+// -----------------------------
+// Generator (same concept as backend)
+// -----------------------------
+function* dataGenerator(total = 1_000_000) {
+  for (let i = 1; i <= total; i++) {
+    yield {
+      id: `VH-${i}`,
+      temperature: Math.random() * 120
+    };
+  }
+}
+
+const generator = dataGenerator();
+
+// -----------------------------
+// UI State
+// -----------------------------
+let running = false;
+let processed = 0;
+let alerts = 0;
+
+const processedEl = document.getElementById("processed");
+const alertsEl = document.getElementById("alerts");
+const statusEl = document.getElementById("status");
+const logBox = document.getElementById("logBox");
+
+// -----------------------------
+// Processing Loop (Lazy)
+// -----------------------------
+function runPipeline() {
+  if (!running) return;
+
+  const { value, done } = generator.next();
+  if (done) {
+    statusEl.textContent = "Completed";
+    return;
+  }
+
+  processed++;
+  processedEl.textContent = processed;
+
+  if (value.temperature > 100) {
+    alerts++;
+    alertsEl.textContent = alerts;
+    log(`🚨 ALERT | ${value.id} | ${value.temperature.toFixed(1)}°C`);
+  } else {
+    log(`Processed ${value.id}`);
+  }
+
+  requestAnimationFrame(runPipeline);
+}
+
+// -----------------------------
+// Logs
+// -----------------------------
+function log(message) {
+  const div = document.createElement("div");
+  div.className = "log";
+  div.textContent = message;
+  logBox.prepend(div);
+
+  if (logBox.children.length > 150) {
+    logBox.removeChild(logBox.lastChild);
+  }
+}
+
+// -----------------------------
+// Controls
+// -----------------------------
+document.getElementById("start").onclick = () => {
+  running = true;
+  statusEl.textContent = "Running";
+  runPipeline();
+};
+
+document.getElementById("pause").onclick = () => {
+  running = false;
+  statusEl.textContent = "Paused";
+};
