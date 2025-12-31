@@ -22,7 +22,18 @@ function* dataGenerator(dataSource) {
   }
 }
 ```
+How It Works
 
+dataSource might have millions of records.
+
+Instead of storing all in memory:
+
+const allData = dataSource; // ❌ Bad: loads everything
+
+
+We use yield to generate one record at a time.
+
+The next record is only created when the pipeline calls generator.next().
 ### 🧠 What This Service Does
 
 > “This generator service lazily produces one data record at a time from a large data source.”
